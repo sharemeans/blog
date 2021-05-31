@@ -64,6 +64,3 @@ deploy:
   type: git
   repo: git@github.com:sharemeans/sharemean.github.io.git
   branch: master
-menu:
-  首页: /
-  分类: /categories/ || th

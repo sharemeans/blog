@@ -396,3 +396,7 @@ providers:
     fontcdn: google
     # Name or URL of the fontawesome icon font CDN provider
     iconcdn: fontawesome
+deploy:
+  type: git
+  repo: git@github.com:sharemeans/sharemean.github.io.git
+  branch: master
