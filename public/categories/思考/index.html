@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Category: 思考 - 蟹小酱</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="蟹小酱"><meta name="msapplication-TileImage" content="/images/logo.favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="蟹小酱"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="蟹小酱"><meta property="og:url" content="https://sharemeans.github.io/"><meta property="og:site_name" content="蟹小酱"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://sharemeans.github.io/img/og_image.png"><meta property="article:author" content="min.xie"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://sharemeans.github.io"},"headline":"蟹小酱","image":["https://sharemeans.github.io/img/og_image.png"],"author":{"@type":"Person","name":"min.xie"},"publisher":{"@type":"Organization","name":"蟹小酱","logo":{"@type":"ImageObject","url":"https://sharemeans.github.io/images/logo.png"}},"description":""}</script><link rel="icon" href="/images/logo.favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/logo.png" alt="蟹小酱" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">文章</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/categories">Categories</a></li><li class="is-active"><a href="#" aria-current="page">思考</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-05-09T16:00:00.000Z" title="2021/5/10 上午12:00:00">2021-05-10</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-05-31T00:32:42.483Z" title="2021/5/31 上午8:32:42">2021-05-31</time></span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%9D%E8%80%83/">思考</a></span><span class="level-item">7 minutes read (About 1112 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/05/10/think/fanganfenxi/">一次技术方案的分析过程</a></h1><div class="content"><blockquote>
+<p>分析技术方案时，保持以终为始的原则。思维就像一棵树，方案就像树枝，遍历之后发现不可行，只需要往根部回溯，重新思考达到目标的其它方法。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这是我负责的一个H5项目，内嵌于APP的webview，页面跳转通过打开新的webview来实现类app的效果。</p>
+<p>在app内从另外一个项目跳转到该应用时，需要带上一个sourceid，标记引流入口。sourceid可能是来源于首页或者商品详情页，只有在下单的时候会提交给订单。</p>
+<p>任务<br>对该sourceid生命周期的要求是： 外部项目跳转进入该项目之后，到关闭由它打开的所有页面为止，算一个生命周期。</p>
+<h2 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h2><h3 id="从页面跳转传参入手"><a href="#从页面跳转传参入手" class="headerlink" title="从页面跳转传参入手"></a>从页面跳转传参入手</h3><p>app为和提供了桥接sdk，应用内webview调用的是同一个api，打开新窗口前可以使用proxy拦截该api，获取当前窗口的链接，将链接上的sourceid带到新窗口上，实现sourceid参数的透传。</p>
+<p>这个方法简单粗暴，却有明显的缺点：</p>
+<ul>
+<li>业务和工具耦合，不利于维护</li>
+<li>分享转发前需要把该参数去掉，会影响到旧的逻辑</li>
+<li>该方法可行，但是属于对公共代码的修改，容易引发bug，暂时纳入备选方案。</li>
+</ul>
+<h3 id="从本地存储方案入手"><a href="#从本地存储方案入手" class="headerlink" title="从本地存储方案入手"></a>从本地存储方案入手</h3><p>浏览器本地缓存方案有localstorage、sessionStorage、cookie。这些方案在webview中是否也适用呢？</p>
+<p>经过在ios中验证localstorage的缓存行为和浏览器类似，sessionStorage和cookie在webview之间不共享，因此2者被排除。</p>
+<blockquote>
+<p>请教了ios客户端的同事，了解到，ios平台的app目前使用的是WKwebview实现，窗口之间使用的是不同的WKProcessPool，所以数据共享是个问题，localstorage之所以看起来像是共享了，实际上只是在打开同源窗口时复制了一份，新开的窗口对localStorgae所做的修改不会对旧窗口有影响。这些问题在以前UIwebview开发的时代是不存在的，而UIwebview的是因为内存占用过高而逐渐被淘汰。</p>
+</blockquote>
+<p>可共享的存储方案就只剩下localstorage。由于localstorage属于持久化存储，想要识别一次完整使用，需要抓住一个边界点：要如何识别一次完整使用，是否具有开始或者结束的标志。在这个边界点更新sourceid</p>
+<p>完整使用的标志有：</p>
+<ul>
+<li>该webview是应用中当前存在的唯一本项目的webview，标记一次使用的开始</li>
+<li>应用中当前存在的唯一本项目的webview被销毁，标记一次使用的结束</li>
+</ul>
+<p>这2种标志如何去标记呢？我想到了以下办法：</p>
+<ul>
+<li>app提供相关api告诉我们是否是同源webview的第一个页面，就像微信小程序那样，打开非首页的头部左上角会显示一个home按钮。很遗憾没有找到相关api。</li>
+<li>像window.onbeforeunload那样监听页面销毁，存储过sourceid的页面在页面销毁前销毁缓存的sourceid。通俗来讲，就是自产自销（销毁）。经测试发现，webview关闭并不会触发window.onbeforeunload和onunload事件。该方法不可行。</li>
+</ul>
+<h3 id="不那么完美的实现方案"><a href="#不那么完美的实现方案" class="headerlink" title="不那么完美的实现方案"></a>不那么完美的实现方案</h3><p>当没有完美的解决方案时，问自己，我们真的一定要完美的实现吗？经过和产品的讨论，产品方认为，不需要。可以根据用户的使用习惯，大致确定sourceid的合理有效时间，通过localstorage实现超时清理方案。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>又一个很简单的决策公式：决策 = 收益 - 成本 - 风险<br>以下列出了暂时可行的方案评估表：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>收益</th>
+<th>成本（开发）</th>
+<th>风险（上线+后期维护）</th>
+<th>决策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>proxy拦截api添加参数</td>
+<td>10</td>
+<td>3</td>
+<td>1+1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>localstorage有效期</td>
+<td>8</td>
+<td>1</td>
+<td>0+0</td>
+<td>7</td>
+</tr>
+</tbody></table>
+<p>根据上表的结果，最终选择了“localstorage有效期”这个方案。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2019-04-08T16:00:00.000Z" title="2019/4/9 上午12:00:00">2019-04-09</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-05-31T00:32:57.788Z" title="2021/5/31 上午8:32:57">2021-05-31</time></span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%9D%E8%80%83/">思考</a></span><span class="level-item">9 minutes read (About 1286 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/04/09/think/manage-time/">四象限时间管理</a></h1><div class="content"><p>史蒂芬·科维的《高效能人士的七个习惯》在描述如何实现个人领域成功时提到了一个很重要的习惯，“要事第一”。</p>
+<p>通常我们列出来的TODO list是线性的，从上至下排列，我们的评判标准只有一个：是否重要。</p>
+<h2 id="一、2个维度-4个象限"><a href="#一、2个维度-4个象限" class="headerlink" title="一、2个维度 4个象限"></a>一、2个维度 4个象限</h2><h3 id="2个维度："><a href="#2个维度：" class="headerlink" title="2个维度："></a>2个维度：</h3><ol>
+<li>是否重要</li>
+</ol>
+<p>  重要性对一个人来说要从价值观的角度去考虑。这件事做了之后是否有收获，这个收获一定要对自己有意义。</p>
+<p>  通常大家觉得，让自己有收获的事情才是最重要的。我觉得，工作期间和工作之余要区分开来。即在该做什么事情的时候就做什么事情。所以，针对工作和生活可以使用2份4象限表。</p>
+<ol start="2">
+<li>是否紧急</li>
+</ol>
+<p>  在近期内必须要完成的，即紧急的</p>
+<p>  一般比较紧急的是有deadline的事情。<br>  工作上的例子：项目上线，会议前的方案搜集<br>  生活中的例子：上学，煮饭</p>
+<h3 id="4个象限："><a href="#4个象限：" class="headerlink" title="4个象限："></a>4个象限：</h3><ol>
+<li>重要且紧急</li>
+<li>重要不紧急</li>
+<li>不重要但紧急</li>
+<li>不重要不紧急。</li>
+</ol>
+<h2 id="二、如何区分事件属于哪个象限？"><a href="#二、如何区分事件属于哪个象限？" class="headerlink" title="二、如何区分事件属于哪个象限？"></a>二、如何区分事件属于哪个象限？</h2><p>以下针对4个象限的界定标准进行描述。</p>
+<h3 id="重要-amp-紧急-Urgent-amp-Important"><a href="#重要-amp-紧急-Urgent-amp-Important" class="headerlink" title="重要&amp;紧急 (Urgent &amp; Important)"></a>重要&amp;紧急 (Urgent &amp; Important)</h3><p>这个象限内的事情可以说不得不做。生活中应该尽量避免堆积太多此类事情，否则整日焦头烂额。</p>
+<blockquote>
+<ol>
+<li>不立即做的话将来随时可能产生危机</li>
+<li>必须在deadline之前赶出来，这个deadline强调外界压力</li>
+</ol>
+</blockquote>
+<h3 id="重要-amp-不紧急-Important-amp-Not-Urgent"><a href="#重要-amp-不紧急-Important-amp-Not-Urgent" class="headerlink" title="重要&amp;不紧急 (Important &amp; Not Urgent)"></a>重要&amp;不紧急 (Important &amp; Not Urgent)</h3><blockquote>
+<ol>
+<li>有助于个人长远发展的事情， 比如学习计划，技术方案调研</li>
+<li>有助于群体长远发展的事情，比如培训计划</li>
+<li>有助于减少“重要紧急”事项的事情。</li>
+</ol>
+</blockquote>
+<p>我们通常说，有拖延症的人通常指，把重要但是不紧急的事情拖延到演变为重要紧急的事情，导致花更多的时间在第一象限。</p>
+<h3 id="紧急-amp-不重要-Urgent-amp-Not-Important"><a href="#紧急-amp-不重要-Urgent-amp-Not-Important" class="headerlink" title="紧急&amp;不重要 (Urgent &amp; Not Important)"></a>紧急&amp;不重要 (Urgent &amp; Not Important)</h3><blockquote>
+<ol>
+<li>需要近期做的事情，迫不得已可以选择不做或者接受延期的</li>
+<li>时间比较赶，但是不怎么耗费精力</li>
+</ol>
+</blockquote>
+<p>这类工作最好做，但是在精力状态一般的情况下做，必要的时候选择不做。这样可以充分利用以及节约时间。这类事情包括约会，群体活动，回复邮件。</p>
+<h3 id="不重要-amp-不紧急-Not-Important-amp-Not-Urgent"><a href="#不重要-amp-不紧急-Not-Important-amp-Not-Urgent" class="headerlink" title="不重要&amp;不紧急 (Not Important &amp; Not Urgent)"></a>不重要&amp;不紧急 (Not Important &amp; Not Urgent)</h3><blockquote>
+<ol>
+<li>纯粹打发时间，没有任何实际意义</li>
+<li>短期精神满足，实则空虚</li>
+</ol>
+</blockquote>
+<p>这类事情在其它象限的事情没有处理完的时候尽量不要做。除非其它象限的事情完全没有精力做下去了又不想休息。</p>
+<h2 id="三、如何实施"><a href="#三、如何实施" class="headerlink" title="三、如何实施"></a>三、如何实施</h2><h3 id="1、针对列出的任务清单，问自己2个问题："><a href="#1、针对列出的任务清单，问自己2个问题：" class="headerlink" title="1、针对列出的任务清单，问自己2个问题："></a>1、针对列出的任务清单，问自己2个问题：</h3><ol>
+<li>这件事情，真的很重要吗？如果是工作任务，是否属于高优先级的任务？如果是学习任务，是否能让自己有所收获？所需要的时间是多久？</li>
+</ol>
+<p>通过以上问题，把任务分成重要和不重要的，相同类别下的任务分别赋值一个重要指数。</p>
+<ol start="2">
+<li>这件事情你自己计划或者上级需要什么时候完成？写下deadline，给自己定下的deadline最好比实际要求的更早。</li>
+</ol>
+<p>通过以上问题，把最近1周内需要做的事情按照deadline进行排序，其它的事情暂时安排到下周。如果任务需要花的时间比较长，最好做一下任务分解，说不定可以分解出一些可以延后的任务。</p>
+<h3 id="2、针对排好的任务进行象限组合、排序"><a href="#2、针对排好的任务进行象限组合、排序" class="headerlink" title="2、针对排好的任务进行象限组合、排序"></a>2、针对排好的任务进行象限组合、排序</h3><p>把每个任务放到所属的象限内，并根据2个维度的指数进行象限内排序。</p>
+<h3 id="3、执行顺序"><a href="#3、执行顺序" class="headerlink" title="3、执行顺序"></a>3、执行顺序</h3><p>大体上任务的执行顺序按照 重要&amp;紧急，重要&amp;不紧急，紧急&amp;不重要，不紧急不重要 的顺序来。</p>
+<p>但是，如果你是替别人打工，有些工作上“不重要且紧急”的事情需要排在“重要&amp;不紧急”的事情前面，往往前者比后者更加耗时间，所以可以选择在前者的间隙处理后者。</p>
+<h3 id="4、每日调整-amp-总结"><a href="#4、每日调整-amp-总结" class="headerlink" title="4、每日调整&amp;总结"></a>4、每日调整&amp;总结</h3><p>安排总会因为各种原因变化，我们要重视对任务重新梳理的过程，以免做无用功。</p>
+<p>不要每天给自己安排过多的任务，总结的时候发现没有按时完成任务会带来懊悔和自我否定。合理的安排比压榨自己更加划算。</p>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/avator.jpg" alt="蟹小酱"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">蟹小酱</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>广东-广州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">27</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">13</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/sharemeans" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/sharemeans"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/H5/"><span class="level-start"><span class="level-item">H5</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/css/"><span class="level-start"><span class="level-item">css</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/html/"><span class="level-start"><span class="level-item">html</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/js/"><span class="level-start"><span class="level-item">js</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/linux/"><span class="level-start"><span class="level-item">linux</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/nuxt/"><span class="level-start"><span class="level-item">nuxt</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/uni-app/"><span class="level-start"><span class="level-item">uni-app</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/vue/"><span class="level-start"><span class="level-item">vue</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/webpack/"><span class="level-start"><span class="level-item">webpack</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%9D%E8%80%83/"><span class="level-start"><span class="level-item">思考</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">网络</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%80%9A%E7%94%A8/"><span class="level-start"><span class="level-item">通用</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-26T16:00:00.000Z">2021-05-27</time></p><p class="title"><a href="/2021/05/27/webpack/cdn-switch/">项目静态资源CDN服务无响应情况的回源</a></p><p class="categories"><a href="/categories/webpack/">webpack</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-09T16:00:00.000Z">2021-05-10</time></p><p class="title"><a href="/2021/05/10/think/fanganfenxi/">一次技术方案的分析过程</a></p><p class="categories"><a href="/categories/%E6%80%9D%E8%80%83/">思考</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-09T16:00:00.000Z">2021-05-10</time></p><p class="title"><a href="/2021/05/10/uni-app/h5-tree-shaking/">uni-app H5模式下treeShaking的坑</a></p><p class="categories"><a href="/categories/uni-app/">uni-app</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-29T16:00:00.000Z">2021-04-30</time></p><p class="title"><a href="/2021/04/30/tools/pipeline-groovy/">插件Pipeline: Groovy</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-01T16:00:00.000Z">2020-10-02</time></p><p class="title"><a href="/2020/10/02/blogs/https/">https密钥交换与数据传输</a></p><p class="categories"><a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">May 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">April 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">August 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/07/"><span class="level-start"><span class="level-item">July 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">March 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/02/"><span class="level-start"><span class="level-item">February 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">December 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/11/"><span class="level-start"><span class="level-item">November 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/08/"><span class="level-start"><span class="level-item">August 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/05/"><span class="level-start"><span class="level-item">May 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/04/"><span class="level-start"><span class="level-item">April 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/02/"><span class="level-start"><span class="level-item">February 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">July 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/logo.png" alt="蟹小酱" height="28"></a><p class="is-size-7"><span>&copy; 2021 min.xie</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
