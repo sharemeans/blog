@@ -1,3 +1,9 @@
+---
+title: webpack中的chunk和bundle
+categories: webpack
+date: 2021-6-2
+---
+
 chunk是webpack运行时的概念，bundle是webpack的执行结果，即生成了多少个文件。
 
 ## chunk和entry
