@@ -1,6 +1,7 @@
 ---
 title: vue 的mount 过程
 categories: vue
+tags: [vue]
 date: 2020-4-2
 ---
 

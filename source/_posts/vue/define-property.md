@@ -1,6 +1,7 @@
 ---
 title: defineProperty
-categories: js
+categories: vue
+tags: [vue]
 date: 2019-11-3
 ---
 定义了如下一个对象：

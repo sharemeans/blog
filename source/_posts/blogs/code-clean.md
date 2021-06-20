@@ -1,6 +1,6 @@
 ---
 title: 代码简洁之道
-categories: 通用
+categories: 其它
 date: 2019-2-4
 ---
 # 代码简洁之道

@@ -1,6 +1,7 @@
 ---
 title: 正向代理和反向代理的区别
-categories: 网络
+categories: 工具
+tags: [代理]
 date: 2020-3-17
 --- 
 ## 正向代理

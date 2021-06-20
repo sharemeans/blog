@@ -1,6 +1,7 @@
 ---
 title: git 常用命令
 categories: 工具
+tags: [git]
 date: 2019-12-1
 ---
 

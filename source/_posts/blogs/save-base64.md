@@ -1,6 +1,7 @@
 ---
 title: base64字符串保存
-categories: js
+categories: javascript
+tags: [base64]
 date: 2020-5-8
 --- 
 

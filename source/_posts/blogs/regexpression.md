@@ -1,6 +1,7 @@
 ---
 title: 有趣的正则表达式
-categories: js
+categories: javascript
+tags: [正则]
 date: 2019-4-16
 --- 
 

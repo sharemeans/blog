@@ -1,6 +1,7 @@
 ---
 title: 常见的vue 报错信息
 categories: vue
+tags: vue
 date: 2020-7-9
 ---
 

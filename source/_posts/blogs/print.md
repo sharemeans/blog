@@ -1,6 +1,7 @@
 ---
 title: 纯js实现打印功能
-categories: js
+categories: javascript
+tags: [javascript]
 date: 2019-8-20
 --- 
 

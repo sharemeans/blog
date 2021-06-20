@@ -1,6 +1,7 @@
 ---
 title: uni-app 小程序自定义导航栏组件
 categories: uni-app
+tags: [组件, uni-app]
 date: 2020-11-20
 --- 
 

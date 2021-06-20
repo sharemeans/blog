@@ -1,6 +1,7 @@
 ---
 title: webpack中的chunk和bundle
-categories: webpack
+categories: 工程化
+tags: [webpack, chunk]
 date: 2021-6-2
 ---
 

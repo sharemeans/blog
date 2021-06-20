@@ -1,6 +1,7 @@
 ---
 title: proxy 与 reflect
-categories: js
+categories: javascript
+tags: [javascript]
 date: 2020-3-15
 --- 
 ## Proxy

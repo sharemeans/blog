@@ -1,6 +1,7 @@
 ---
 title: 项目静态资源CDN服务无响应情况的回源
-categories: webpack
+categories: 工程化
+tags: [webpack, cdn]
 date: 2021-5-27
 ---
 

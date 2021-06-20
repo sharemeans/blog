@@ -1,6 +1,7 @@
 ---
 title: vue runtime 和 esm
 categories: vue
+tags: [vue]
 date: 2020-8-1
 ---
 ## 一. esm是vue 的“运行时”和“编译器”的集合

@@ -1,6 +1,7 @@
 ---
 title: nuxt导航共用
 categories: nuxt
+tags: [nuxt]
 date: 2020-1-20
 ---  
 

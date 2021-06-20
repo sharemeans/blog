@@ -1,6 +1,7 @@
 ---
 title: 防抖和节流
-categories: js
+categories: javascript
+tags: [防抖节流]
 date: 2021-05-31
 --- 
 ## 防抖

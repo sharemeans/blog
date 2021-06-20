@@ -1,6 +1,7 @@
 ---
 title: html property & attribute
 categories: html
+tags: [html]
 date: 2018-7-3
 --- 
 ## property

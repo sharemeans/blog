@@ -1,6 +1,7 @@
 ---
 title: uni-app H5模式下treeShaking的坑
 categories: uni-app
+tags: [treeShaking, uni-app]
 date: 2021-5-10
 ---  
 

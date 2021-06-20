@@ -1,6 +1,7 @@
 ---
 title: "插件Pipeline: Groovy"
 categories: 工具
+tags: Jenkins
 date: 2021-4-30
 --- 
 

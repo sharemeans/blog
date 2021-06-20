@@ -1,6 +1,7 @@
 ---
 title: linux常见命令
-categories: linux
+categories: 工具
+tags: [linux]
 date: 2019-12-6
 --- 
 
