@@ -43,6 +43,18 @@ class Footer extends Component {
                         </p>
                     </div>
                     <div class="level-end">
+                        <span id="busuanzi_container_site_uv">
+                            ❤️ 感谢
+                            <span id="busuanzi_value_site_uv">0</span>
+                            位小伙伴的
+                        </span>
+                        <span id="busuanzi_container_site_pv">
+                            <span id="busuanzi_value_site_pv">0</span>
+                            次陪伴
+                        </span>
+                    </div>
+                    
+                    <div class="level-end">
                         {Object.keys(links).length ? <div class="field has-addons">
                             {Object.keys(links).map(name => {
                                 const link = links[name];
@@ -56,15 +68,6 @@ class Footer extends Component {
                     </div>
                 </div>
             </div>
-            <span id="busuanzi_container_site_uv">
-                ❤️ 感谢
-                <span id="busuanzi_value_site_uv">0</span>
-                位小伙伴的
-            </span>
-            <span id="busuanzi_container_site_pv">
-                <span id="busuanzi_value_site_pv">0</span>
-                次陪伴
-            </span>
         </footer>;
     }
 }

@@ -59,3 +59,62 @@ git checkout --track origin/A
 ```
 git pull -s recursive -X theirs A
 ```
+
+## 恢复被删除的stash
+1. 输出最近删除的stash
+```
+git fsck --lost-found
+/**
+* dangling commit 42c7122df57f326a6e1e0498fb89af06ab521192
+*/
+```
+2. 从输出列表中找出需要恢复的id：
+```
+git stash apply 42c7122df57f326a6e1e0498fb89af06ab521192
+```
+
+## 重命名当前分支
+
+```
+// 重命名为main
+git branch -m main
+git branch -M Main
+```
+
+## 打tag
+1. 切换到要打tag的分支
+2. 基于某个commit打tag
+```
+git tag -a [tagname] -m [tagmessage]
+```
+3. 提交tag到远程
+```
+git push origin [tagname]
+```
+4. 提交所有tag到远程
+```
+git push origin --tags
+// 或者
+git push --tags
+```
+5. 删除tag
+```
+// 第一步：删除本地tag
+git tag -d [tagname]
+// 第二步：推到远程
+git push origin :refs/tags/[tagname]
+```
+
+## vscode git密码重置
+vscode会帮我们记住git账号密码。当git账号变更导致vscode提示身份校验失败时，需要重置密码。
+```
+// 清空密码
+git config --system --unset credential.helper
+```
+
+重置后，再次提交代码，会弹窗提示输入新的账号密码
+
+## 参考资料
+
+http://blog.codingplayboy.com/2017/04/06/git_branch/
+http://blog.codingplayboy.com/2017/04/14/git_rebase/#rebase
