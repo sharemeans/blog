@@ -17,7 +17,7 @@ let b = {}
 ```
 
 通过字面量创建的变量，底层会调用对应的构造函数，可以输出constructor属性看看：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309631324-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309631324-image.png)
 字面量生成的变量原型是是这些内置类型的构造函数。
 
 ## 构造函数创建的变量
@@ -30,7 +30,7 @@ function MyClass(name) {
 let myObj = new MyClass('bar')
 ```
 myObj格式如下：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309653718-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309653718-image.png)
 myObj.constructor取的是__proto__.constructor
 
 Object.create
@@ -44,7 +44,7 @@ let obj2 = Object.create(obj)
 
 可见，obj2.__proto__没有constructor属性，所以obj2.constructor会继续往上级寻找该属性，所以，obj2.constructor的值为Object函数
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309680961-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309680961-image.png)
 
 
 ## js类继承
@@ -181,7 +181,7 @@ c instanceof Child // true
 ```
 
 这一点超出预料，尽管从浏览器的输出结果，并没有找到Child的影子：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309822567-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309822567-image.png)
 看来，Child.prototype.constructor = Child似乎不是很有必要。
 
 4. 加上constructor
@@ -221,5 +221,5 @@ console.log(child1.copy() instanceof Child); // => false
 
 判断变量类型有多种方法，下表列出了这些方法的完整功能范围：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309920093-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309920093-image.png)
 

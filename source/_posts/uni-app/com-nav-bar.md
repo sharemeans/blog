@@ -7,11 +7,11 @@ date: 2020-11-20
 
 该组件是基于uni-ui扩展组件uni-nav-bar修改。导航组件严格来说是有2个组件组成：状态栏组件，头部组件
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-31/1622442807912-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-31/1622442807912-image.png)
 
 getStatusBarHeight和getMenuButtonBoundingClientRect方法可以获取小程序状态栏和头部胶囊信息，取值关系如下：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-31/1622449017125-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-31/1622449017125-image.png)
 
 需要注意的是，通过getMenuButtonBoundingClientRect方法top属性一般比getStatusBarHeight的值大，且不同设备具体差异大小不同。
 

@@ -121,7 +121,7 @@ function foo() {\n  console.log('function foo');\n}\n\nmodule.exports = foo;
 ## 浏览器加载sourcemap
 
 以chrome为例，preferences面板可以开启sourcemap支持：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-29/1624937369621-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-29/1624937369621-image.png)
 
 浏览器自动识别代码中的sourceURL字段并加载对应的代码。
 
@@ -132,4 +132,4 @@ function foo() {\n  console.log('function foo');\n}\n\nmodule.exports = foo;
 * sourceURL是用来给eval方法内的代码字符串命名的。webpack-dev-server编译后的代码是通过eval执行的。浏览器直接以该文件名建立新文件，调试时可以直接打开这个新文件，而不用在定位到eval方法中。
 * sourceMappingURL中的sources内的文件为转化前的代码路径，用来调试时报错定位。
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-29/1624971697729-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-29/1624971697729-image.png)

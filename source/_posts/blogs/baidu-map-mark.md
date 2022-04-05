@@ -7,7 +7,7 @@ date: 2018-11-5
 
 最近有个业务要用到百度地图以及自定义自定义图标功能。具体浏览地址：[锦江酒店-分销通](http://travel.bestwehotel.com/)需要实现的效果如下：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-6/1622977029489-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-6/1622977029489-image.png)
 
 需要满足的交互：
 * 左侧列表滚动时，右侧地图中心位置的标记变为左侧鼠标所在的商品上

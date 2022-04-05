@@ -24,10 +24,10 @@ manifest.json文件配置，可以开启分包优化。
 
 划重点：
 1. 自定义组件不会自动被优化，只是会在命令行显示提示信息，并不会自动移动组件
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628306356264-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628306356264-image.png)
 
 2. 只会自动移动可移入分包的js文件。
 3. 分析分包建议结果，发现其建议存在部分误导，开发者需要主动鉴别：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628306408144-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628306408144-image.png)
 4. 分析分包建议结果，发现其建议存在遗漏。
 5. npm中的组件也会参与分包优化建议，但是使用easycom的情况下是不会被提示的。

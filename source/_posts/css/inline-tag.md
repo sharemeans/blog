@@ -7,7 +7,7 @@ date: 2020-6-18
 
 有一个需求要实现下图的布局效果：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-15/1623756154070-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-15/1623756154070-image.png)
 
 商品标签和商品标题融合在一起。
 
@@ -35,7 +35,7 @@ date: 2020-6-18
 ```
 结果：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-18/1623999303996-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-18/1623999303996-image.png)
 
 可见，float:left和display:inline-block并列时，后者会换行。MDN解释说`float意味着使用块布局`。用这句话解释上面的情况说得过去。
 
@@ -50,7 +50,7 @@ date: 2020-6-18
 ```
 就会变成
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-18/1623999523016-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-18/1623999523016-image.png)
 
 看来`float意味着使用块布局`这一点还要结合`float本身是被用来设计文字环绕`的说法结合才能解释的通float的行为。
 
@@ -106,7 +106,7 @@ date: 2020-6-18
 ## 多行省略的文字环绕
 如果需求再升级：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-18/1623999965411-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-18/1623999965411-image.png)
 
 多行省略使用了box布局：
 ```
@@ -160,4 +160,4 @@ class="product-name">{{product.productName}}</span>
 
 需要注意的是，product-item-title内、元素之间不能有换行，否则行内元素就不能在同一行了。效果如下：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-18/1624008388023-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-18/1624008388023-image.png)

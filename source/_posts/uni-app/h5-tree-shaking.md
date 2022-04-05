@@ -8,7 +8,7 @@ date: 2021-5-10
 uni-apph5打包模式，使用[treeShaking](https://uniapp.dcloud.io/collocation/manifest?id=treeshaking)时，该配置只在生产模式下有效，即使部署到测试和预生产都没有问题，发布到生产之前一定要先本地打包生产模式确保无异常。
 
 我们的项目发布到生产之后运行h5出现以下报错：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622344617219-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622344617219-image.png)
 
 经过一番全局搜索，看到了一个插件（目录：@dcloudio/vue-cli-plugin-uni-optimize/packages/babel-plugin-uni-api/index.js）：
 
@@ -54,10 +54,10 @@ vue-cli-plugin-uni-optimize插件（@dcloudio/vue-cli-plugin-uni-optimize/index.
 * 将uni api的模块引用路径替换成@dcloudio\vue-cli-plugin-uni-optimize\.tmp\api.js路径下的文件
 
 但是我们从前文可知，唯一一处更新process.UNI_APIS的代码并未执行（猜测是uni-app代码的bug），导致uni-api update了个寂寞:
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622345030913-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622345030913-image.png)
 
 以上关键代码并未更新任何api，只是引入了一些默认的核心api（@dcloudio/vue-cli-plugin-uni-optimize/packages/webpack-optimize-plugin/api.js）:
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622345080481-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622345080481-image.png)
 
 以上代码标记部分，manifest[name][2]的值为true，即为核心api时才会被默认引入。
 
@@ -99,7 +99,7 @@ try {
 ## 结果
 
 将“未开启tree-shaking”，“开启tree-shaking打包异常”，“开启tree-shaking并修复api打包异常”3个版本打包结果对比：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622345486280-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622345486280-image.png)
 
 可以看到，uni-app的tree-shaking效果一般，修复tree-shaking的打包结果依旧比开启前少了0.1M。
 

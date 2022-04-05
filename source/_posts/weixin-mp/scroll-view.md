@@ -32,11 +32,11 @@ https://developers.weixin.qq.com/community/develop/doc/0004aeafeccb789ac219e4747
 ### safari 13.0以上的版本解决办法
 
 safari 13.0以上的版本就不需要该属性了
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628308610008-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628308610008-image.png)
 (https://developer.apple.com/documentation/safari-release-notes/safari-13-release-notes)
 
 了解了原因之后，我们分析下ios系统版本占比：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628308669260-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628308669260-image.png)
 
 (数据来源：腾讯大数据->腾讯移动分析 MTA)
 

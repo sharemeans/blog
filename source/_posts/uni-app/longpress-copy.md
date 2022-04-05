@@ -11,7 +11,7 @@ date: 2021-7-20
 
 真机调试的时候样式审查，看到的text标签具有user-select:text：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623928631379-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623928631379-image.png)
 
 虽然审查出来样式是有user-select:text，实际上在ios设备上依旧无法长按选择。这个样式审查估计是假的吧。
 

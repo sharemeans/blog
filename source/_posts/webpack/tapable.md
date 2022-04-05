@@ -7,7 +7,7 @@ date: 2021-7-24
 
 ## tapable内部关系结构图
 tapable官方文档写的过于简洁，如果想要搞清楚tap类型、钩子类型、call类型之间的关系，还是得看源码才行。以下是我整理出来的关系结构图：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-7-24/1627102887500-tapable%E5%85%B3%E7%B3%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-7-24/1627102887500-tapable%E5%85%B3%E7%B3%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png)
 
 ## 简单示例
 以AsyncSeriesHook的callAsync为例，分别插入一个promise和async类型的插件：

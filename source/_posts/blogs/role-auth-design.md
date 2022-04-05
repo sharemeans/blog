@@ -24,7 +24,7 @@ date: 2019-3-2
 3. 有些权限仅控制页面内操作，和任何路由无关。
 
 根据以上分析，可以构思出这3个关键词的结构：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-12/1623467846986-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-12/1623467846986-image.png)
 
 根据上图可知，权限可以有2种行为：
 * 控制路由

@@ -24,7 +24,7 @@ date: 2021-5-20
 ## npm install
 
 npm install的依赖安装处理逻辑如下图：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-8/1623119747450-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-8/1623119747450-image.png)
 
 ### 项目依赖和工具库依赖冲突
 

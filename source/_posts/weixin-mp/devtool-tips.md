@@ -8,7 +8,7 @@ date: 2021-6-12
 ## 默认选项开关
 project.config.json可以配置开发者工具的一些选项开关，不用每次不厌其烦的等模拟器渲染完再去一个个的关闭了。
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-8-7/1628309327902-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-8-7/1628309327902-image.png)
 [project.config.json](https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html)
 
 其中，packOptions可以配置代码上传时的忽略目录。

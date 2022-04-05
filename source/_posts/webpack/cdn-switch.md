@@ -131,7 +131,7 @@ import('@/main.js').catch(err => {
 这样就巧妙实现了入口文件异步加载。那么问题来了，main2.js又会被html-webpack-plugin插入index.html。由于main2.js的代码量较少，我选择内联，使用HtmlWebpackInlineSourcePlugin将main.js内联到index.html中。
 #### index.css的处理
 在调试HtmlWebpackInlineSourcePlugin的过程中发现，index.css并不在assets列表中。我们看看index.css的生成代码：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622347411128-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622347411128-image.png)
 
 这段代码做了2件事：
 1. 通过检查html中有没有VUE_APP_INDEX_CSS_HASH来判断生辰的index.css文件名要不要带上hash
@@ -146,7 +146,7 @@ import('@/main.js').catch(err => {
 一开始想到的是使用window.addEventListener('error')，但是尝试后发现无法捕获promise中的异常，所以改用window.addEventListener('unhandledrejection')。
 
 在回调中，需要做判断区分是否是资源加载超时。通过分析webpack模块源码可以发现它有做超时异常处理：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-5-30/1622347667614-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-5-30/1622347667614-image.png)
 
 且超时时间可以通过output.chunkLoadTimeout配置修改，默认值是120s，觉得太长的可以考虑覆盖。对于现在的用户来说，12s都算很长了，所以我选择缩短到12s。此外，超时异常格式可以通过上图的type和message匹配。
 

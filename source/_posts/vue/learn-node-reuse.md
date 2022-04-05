@@ -109,10 +109,10 @@ function sameInputType (a, b) {
 > 需要注意的是，输入框等表单项的value并没有作为判断依据。即，如果input的所有属性都一样，就会被认为可以复用，input并不会被重新渲染。这也解释了为什么会存在2个输入框交换顺序后绑定值和之前的顺序一致。
 
 关于对容一个层级的理解，看下图就清楚了：
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-14/1623672057253-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-14/1623672057253-image.png)
 
 对于整个树状的vDOM，对比过程就是深度遍历的过程。
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-14/1623672201578-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-14/1623672201578-image.png)
 
 
 
@@ -125,52 +125,52 @@ vue是如何对比同一个层级新旧子节点的呢？它其实是2种方法�
 
 以同一个层级的新旧列表为例，假设数组的顺序变更为：**[A, B, C, D, E] => [F, B, A, E, C, G]**，用图展示绑定key为value的过程。
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-16/1623804238240-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-16/1623804238240-image.png)
 <div style="color: #999;padding: 2px;">👆4个箭头分别为oldStartIndex，oldEndIndex，newStartIndex, newEndIndex。旧A-新F，旧A-新G，旧E-新F，旧E-新G这4对对应的vNode进行比较。</div>
 
 <div style="color: #999;padding: 2px;">👆由于绑定的key值不同，认定为不同的节点。接下来将通过key:index映射来尝试找到newStartNode。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623889372354-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623889372354-image.png)
 <div style="color: #999;padding: 2px;">👆newStartNode通过key也没找到，因此新建一个DOM元素，插入到oldStartNode指向的DOM节点之前</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623889877910-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623889877910-image.png)
 
 <div style="color: #999;padding: 2px;">👆newStartVnode已经完成DOM创建和插入，接下来右移newStartIndex</div>
 <div style="color: #999;padding: 2px;">👆新B-旧A，新B-旧E，新G-旧A，新G-旧E这4对又开始对比（这里发现有个问题，新G-旧A，新G-旧E重复对比了，这算不算一个优化点呢？vue@2.6.11）。</div>
 <div style="color: #999;padding: 2px;">👆对比结果又是没匹配上。新B通过key:index映射找到了原身，旧B对应的DOM节点则移动到oldStartNode的前面。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623890393456-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623890393456-image.png)
 
 <div style="color: #999;padding: 2px;">👆新B的DOM节点已经安顿好了，新B对应的old vNode位置也对应从数组删除，为了不影响现有索引位置，只是old vNode的值设置为undefined。newStartIndex右移一位。</div>
 <div style="color: #999;padding: 2px;">👆新A-旧A识别为相同的节点，由于都是startIndex，因此二者对应的DOM节点在父元素中的位置保持不变。oldStartIndex和newStartIndex右移一位</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623939477940-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623939477940-image.png)
 
 <div style="color: #999;padding: 2px;">👆新E-旧E识别为相同节点。旧E（oldEndIndex）对应的DOM移动到旧C（oldStartIndex）对应的DOM节点之前👇</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623939669940-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623939669940-image.png)
 
 <div style="color: #999;padding: 2px;">👇oldStartIndex和newStartIndex右移一位，oldStartIndex遇到旧B的位置为undefined，继续右移。</div>
 
 <div style="color: #999;padding: 2px;">根据上一轮的匹配结果，oldEndIndex对应vNode置空，oldEndIndex左移，newStartIndex右移👇</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623940208168-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623940208168-image.png)
 
 <div style="color: #999;padding: 2px;">👆新C-旧C识别为相同的节点，由于都是startIndex，因此二者对应的DOM节点在父元素中的位置保持不变。oldStartIndex对应的vNode置空，oldStartIndex和newStartIndex右移一位。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623940918268-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623940918268-image.png)
 
 <div style="color: #999;padding: 2px;">👆oldStartIndex和oldEndIndex相遇，newStartIndex和newEndIndex相遇。新G-旧D无法识别为相同节点。通过key:index映射也无法匹配上，说明G是新增节点。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623941240177-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623941240177-image.png)
 
 <div style="color: #999;padding: 2px;">👆针对G新建DOM节点，插入oldStartIndex对应DOM节点之前。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623941521350-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623941521350-image.png)
 
 <div style="color: #999;padding: 2px;">👆由于新G已安顿好，newStartIndex右移，但是越界，因此循环终止。</div>
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-17/1623941771908-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-17/1623941771908-image.png)
 
 <div style="color: #999;padding: 2px;">👆删除oldStartIndex和oldEndIndex之间的vNode以及DOM节点。</div>
 
@@ -193,13 +193,13 @@ vue是如何对比同一个层级新旧子节点的呢？它其实是2种方法�
 
 以上分析过程只是普通的节点更新流程。如果一串节点被transition-group包裹，会发生什么呢？
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-18/1623976185660-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-18/1623976185660-image.png)
 
 源码中，如果有transition-group包裹，可复用的DOM节点顺序是不会调整的，只会新增和删除。如以上例子 **[A, B, C, D, E] => [F, B, A, E, C, G] ** 对比结束后顺序DOM节点顺序将会是:
 
 **[F, A, B, C, E, G]**：
 
-![](https://gitee.com/ndrkjvmkl/picture/raw/master/2021-6-20/1624192060131-image.png)
+![](https://sharemeans.oss-cn-guangzhou.aliyuncs.com/picture/2021-6-20/1624192060131-image.png)
 
 接下来是实施过渡的步骤：
 
